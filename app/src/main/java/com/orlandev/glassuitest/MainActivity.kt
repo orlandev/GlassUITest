@@ -37,6 +37,9 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+const val max = 80.0f;
+const val min = 1f;
+val calc = ((max - min) * (25 / 100.0) + min).toFloat()
 const val BLUR_RADIUS = 25f
 
 @Composable
@@ -68,7 +71,7 @@ fun blurImage(bitmap: Bitmap, context: Context): Bitmap {
     val rs = RenderScript.create(context)
     val bitmapAlloc = Allocation.createFromBitmap(rs, bitmap)
     ScriptIntrinsicBlur.create(rs, bitmapAlloc.element).apply {
-        setRadius(BLUR_RADIUS)
+        setRadius(calc)
         setInput(bitmapAlloc)
         forEach(bitmapAlloc)
     }
